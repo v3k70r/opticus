@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!--carrousel-->
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--imagenes-->
+        <div class="carousel-inner" role="listbox">
+
+            <!--se cargan los banners-->
+            {% for banner in banners%}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="view">
+                    <img class="d-block w-100" src="{{ banner.imagen.url}}" alt="First slide">
+                    <div class="mask rgba-black-light"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">{{ banner.titulo }}</h3>
+                    <p>{{ banner.descripcion}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!--controles del banner-->
+     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="sr-only">Anterior</span>
+     </a>
+    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+    </a>
+
+
+    <!--entradas-->
+    <div class="container">
+          <div class="row">
+              <!--se cargan las entradas-->
+              {% for entrada in entradas %}
+              <div class="col-sm">
+                  <div class="card" style="width: 18r">
+                      <img src="{{ entrada.imagen.url}}" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h4>{{ entrada.titulo }}</h4>
+                          <p class="card-text">{{entrada.contenido}}</p>
+                          <i>{{entrada.fecha}}</i>
+                      </div>
+                  </div>
+                </div>
+                {% endfor %}
+          </div>
+    </div>
+
+    <!--Para separar en varias páginas el contenido-->
+    <div class="pagination">
+        <span class="step-links">
+            {% if entradas.has_previous %}
+            <a href="?page=1">&laquo; primera</a>
+            <a href="?page={{ entradas.previous_page_number }}">anterior</a>
+            {% endif %}
+            <span class="current">Pagina {{ entradas.number }} de {{ entradas.paginator.num_pages }}.</span>
+            {% if entradas.has_next %}
+                <a href="?page={{ entradas.next_page_number }}">siguiente</a>
+                <a href="?page={{ entradas.paginator.num_pages }}">ultima &raquo;</a>
+            {% endif %}
+            </span>
+        </div>
+{% endblock %}

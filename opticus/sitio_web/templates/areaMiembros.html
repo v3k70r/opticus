@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2>Área de miembros</h2>
+    <p>
+        ¡Bienvenido <b>{{request.user.username}}</b>!
+        esta página es exclusiva para usuarios registrados.
+    </p>
+
+    <hr />
+    <a href="/logout">Cerrar sesión</a>
+{% endblock %}
